@@ -12,11 +12,14 @@ void SPI_init(SPIObject_t *ptSPIObject);
 
 inline void SPI_write(SPIObject_t *ptSPIObject, uint32_t ui32Data)
 {
+    uint32_t ui32Dummy;
+    
     SSIDataPut(ptSPIObject->tSPIAddrBase, ui32Data);
     while (SSIBusy(ptSPIObject->tSPIAddrBase))
     {
         // Loop until Sending Data to be completed.
     }
+    SSIDataGet(ptSPIObject->tSPIAddrBase, &ui32Dummy);
 }
 
 inline uint8_t SPI_command(SPIObject_t *ptSPIObject, uint32_t ui32Command)
